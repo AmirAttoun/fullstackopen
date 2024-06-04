@@ -6,11 +6,7 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const StatisticsLine = ({ text, value, total, type }) => 
-  if (total === 0) {
-    return <p></p>
-  }
-
+const StatisticsLine = ({ text, value, total, type }) => {
   let displayValue = value;
   
   if (type === 'average') {
@@ -19,8 +15,15 @@ const StatisticsLine = ({ text, value, total, type }) =>
     displayValue = ((value / total) * 100) + '%';
   }
 
-  return <p>{text} {displayValue}</p>
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{displayValue}</td>
+    </tr>
+  )
 }
+
+const Text = ({ text }) => <p>{text}</p>
 
 const Header = ({ text }) => <h1>{text}</h1>
 
@@ -52,12 +55,20 @@ const App = () => {
       <Button handleClick={handleNeutralClick} text='neutral' />
       <Button handleClick={handleBadClick} text='bad' />
       <Header text='statistics' />
-      <StatisticsLine text='good' value={good} total={totalClicks} />
-      <StatisticsLine text='neutral' value={neutral} total={totalClicks} />
-      <StatisticsLine text='bad' value={bad} total={totalClicks} />
-      <StatisticsLine text='total clicks' value={totalClicks} total={totalClicks} /> 
-      <StatisticsLine text='average' value={good - bad} total={totalClicks} type='average' /> 
-      <StatisticsLine text='positive' value={good} total={totalClicks} type='positive' /> 
+      {totalClicks === 0 ? (
+        <Text text='No feedback given' />
+      ) : (
+        <table>
+          <tbody>
+          <StatisticsLine text='good' value={good} />
+          <StatisticsLine text='neutral' value={neutral} />
+          <StatisticsLine text='bad' value={bad} />
+          <StatisticsLine text='total clicks' value={totalClicks} /> 
+          <StatisticsLine text='average' value={good - bad} total={totalClicks} type='average' /> 
+          <StatisticsLine text='positive' value={good} total={totalClicks} type='positive' /> 
+          </tbody>
+        </table>
+      )}
     </div>
   )
 }
