@@ -2,7 +2,7 @@ import Names from './Names';
 import TelephoneNumbers from './TelephoneNumbers';
 
 //DisplayPersons.jsx
-const DisplayPersons = ({ peopleToShow }) => {
+const DisplayPersons = ({peopleToShow, deletePerson}) => {
     return (
       <div>
           <table>
@@ -12,7 +12,7 @@ const DisplayPersons = ({ peopleToShow }) => {
                   <Names peopleToShow={peopleToShow} />
                 </td>  
                 <td>
-                  <TelephoneNumbers peopleToShow={peopleToShow} />
+                  <TelephoneNumbers peopleToShow={peopleToShow} deletePerson={() => deletePerson()}/>
                 </td>
               </tr>
             </tbody>

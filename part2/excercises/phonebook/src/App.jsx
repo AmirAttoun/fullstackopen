@@ -3,7 +3,7 @@ import Heading2 from './Heading2';
 import Filter from './Filter';
 import AddPersonForm from './AddPersonForm';
 import DisplayPersons from './DisplayPersons';
-import axios from "axios";
+import personService from './services/persons';
 
 
 const App = () => {
@@ -13,10 +13,10 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
 
   useEffect(() => {
-  axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
+  personService
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
     })
 }, [])
 
@@ -41,8 +41,28 @@ const App = () => {
       number: newNumber
     }
 
-    setPersons(persons.concat(personObject))
-    console.log('button clicked', event.target)
+    personService
+      .create(personObject)      
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewNumber('')      
+      })
+
+  }
+
+  const deletePerson = (id) => {
+    const person = persons.find(p => p.id === id)
+    const changedPerson = { ...person, important: !person.important }
+
+    personService
+      .update(id, changedPerson)      
+      .then(returnedPerson => {        
+        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))   
+      })
+      .catch (error => {
+        alert(`the note '${note.content}' was already deleted from server`)
+        setPersons(persons.filter(p => p.id !== id))
+      })
   }
 
   const handleNewName = (event) => {
@@ -65,6 +85,7 @@ const App = () => {
     : persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   
+  
   return (
     <div>
       <Heading2 text='Phonebook' />
@@ -77,7 +98,7 @@ const App = () => {
           newNumber={newNumber}
           handleNewNumber={handleNewNumber} />
       <Heading2 text='Numbers' />
-        <DisplayPersons peopleToShow={peopleToShow} />
+        <DisplayPersons peopleToShow={peopleToShow} deletePerson={() => deletePerson()} />
     </div>
 )}
 
