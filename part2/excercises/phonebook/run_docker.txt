@@ -1,0 +1,5 @@
+docker compose run node npm i && docker compose up --remove-orphans --force-recreate --detach
+
+or simply
+
+docker compose up --remove-orphans --force-recreate --detach
