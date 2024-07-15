@@ -3,3 +3,16 @@ docker compose run node npm i && docker compose up --remove-orphans --force-recr
 or simply
 
 docker compose up --remove-orphans --force-recreate --detach
+
+or 
+
+docker compose up --remove-orphans --detach
+
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
+
+
+PUSHING
+docker login -u “myusername” -p “mypassword” docker.io
+docker tag projetofinal2_web gabrieldeoliveiraest/projetofinal2_web:version1
+docker push gabrieldeoliveiraest/projetofinal2_web:version1
