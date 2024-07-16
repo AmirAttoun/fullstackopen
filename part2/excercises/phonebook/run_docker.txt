@@ -14,5 +14,5 @@ docker push new-repo:tagname
 
 PUSHING
 docker login -u “myusername” -p “mypassword” docker.io
-docker tag projetofinal2_web gabrieldeoliveiraest/projetofinal2_web:version1
-docker push gabrieldeoliveiraest/projetofinal2_web:version1
+docker tag phonebook-node darkstream/phonebook-node:latest
+docker push darkstream/phonebook-node:latest
