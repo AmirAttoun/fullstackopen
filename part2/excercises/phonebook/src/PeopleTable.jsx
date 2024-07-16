@@ -6,7 +6,7 @@ const PeopleTable = ({ people, onDelete }) => (
       <tr>
         <th>Name</th>
         <th>Number</th>
-        <th>Action</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
