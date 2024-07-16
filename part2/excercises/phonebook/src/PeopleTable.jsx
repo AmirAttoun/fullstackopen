@@ -1,3 +1,5 @@
+import Button from "./Button"
+
 const PeopleTable = ({ people, onDelete }) => (
   <table>
     <thead>
@@ -17,12 +19,13 @@ const PeopleTable = ({ people, onDelete }) => (
               className="button-delete"
               type="button"
               onClick={() => onDelete(person.id)}
-            >
-              Delete
-            </Button>
+              text="delete"
+            ></Button>
           </td>
         </tr>
       ))}
     </tbody>
   </table>
 )
+
+export default PeopleTable

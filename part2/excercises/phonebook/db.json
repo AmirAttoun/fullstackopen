@@ -1,14 +1,3 @@
 {
-  "persons": [
-    {
-      "id": "1b24",
-      "name": "Susann",
-      "number": "000 000 00 00"
-    },
-    {
-      "id": "8254",
-      "name": "sadasd",
-      "number": "sdsdsd"
-    }
-  ]
+  "persons": []
 }

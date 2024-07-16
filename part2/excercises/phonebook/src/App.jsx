@@ -25,12 +25,24 @@ const App = () => {
     }
     return false
   }
+
   const addPerson = (event) => {
+    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
     event.preventDefault()
+    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
     if (checkDuplicate(newName)) {
-      alert(`${newName} is already added to phonebook`)
+      if (newNumber.trim() !== "") {
+        alert(
+          `${newName} is already added to phonebook and number should be updated`
+        )
+      } else {
+        alert(
+          `${newName} is already added to phonebook. If you want to update the number, please enter a number.`
+        )
+      }
       return
     }
+    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
 
     const personObject = {
       name: newName,
