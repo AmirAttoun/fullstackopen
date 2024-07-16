@@ -27,14 +27,10 @@ const App = () => {
   }
 
   const addPerson = (event) => {
-    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
     event.preventDefault()
-    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
     if (checkDuplicate(newName)) {
       if (newNumber.trim() !== "") {
-        alert(
-          `${newName} is already added to phonebook and number should be updated`
-        )
+        updateNumber(persons.find((person) => person.name === newName).id)
       } else {
         alert(
           `${newName} is already added to phonebook. If you want to update the number, please enter a number.`
@@ -42,7 +38,6 @@ const App = () => {
       }
       return
     }
-    console.log("addPerson called, newName:", newName, "newNumber:", newNumber)
 
     const personObject = {
       name: newName,
@@ -53,6 +48,18 @@ const App = () => {
       setPersons(persons.concat(returnedPerson))
       setNewName("")
       setNewNumber("")
+    })
+  }
+
+  const updateNumber = (id) => {
+    const url = `http://localhost:3001/persons/${id}`
+    const person = persons.find((n) => n.id === id)
+    const changedPerson = { ...person, number: newNumber }
+
+    personService.update(id, changedPerson).then((returnedPerson) => {
+      setPersons(
+        persons.map((person) => (person.id !== id ? person : returnedPerson))
+      )
     })
   }
 
