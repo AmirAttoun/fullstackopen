@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //TelephoneNumbers.jsx
 const TelephoneNumbers = ({ peopleToShow }) => {
     return (

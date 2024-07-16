@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import Heading2 from './Heading2';
-import Filter from './Filter';
-import AddPersonForm from './AddPersonForm';
-import personService from './services/persons';
-import Names from './Names';
-import TelephoneNumbers from './TelephoneNumbers';
-import Button from './Button';
+import Heading2 from './Heading2'
+import Filter from './Filter'
+import AddPersonForm from './AddPersonForm'
+import personService from './services/persons'
+import Names from './Names'
+import TelephoneNumbers from './TelephoneNumbers'
+import Button from './Button'
 
 
 const App = () => {
@@ -47,6 +47,7 @@ const App = () => {
       .create(personObject)      
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
+        setNewName('')
         setNewNumber('')      
       })
 
@@ -54,18 +55,19 @@ const App = () => {
 
   const deletePerson = (id) => {
     const person = persons.find(p => p.id === id)
-    const changedPerson = { ...person, important: !person.important }
 
+  if (window.confirm(`Delete ${person.name}?`)) {
     personService
-      .update(id, changedPerson)      
-      .then(returnedPerson => {        
-        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))   
+      .remove(id, person.name)      
+      .then(() => {        
+        setPersons(persons.filter(person => person.id !== id));
       })
-      .catch (error => {
-        alert(`the note '${note.content}' was already deleted from server`)
-        setPersons(persons.filter(p => p.id !== id))
-      })
-  }
+      .catch(error => {
+        console.error('Deletion error:', error.message);
+        alert(`The person '${person.name}' was already deleted from the server.`);
+        setPersons(persons.filter(p => p.id !== id));
+      });
+}}
 
   const handleNewName = (event) => {
     console.log(event.target.value)
