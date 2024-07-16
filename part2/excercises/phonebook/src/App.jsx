@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import Heading2 from './Heading2';
 import Filter from './Filter';
 import AddPersonForm from './AddPersonForm';
-import DisplayPersons from './DisplayPersons';
 import personService from './services/persons';
+import Names from './Names';
+import TelephoneNumbers from './TelephoneNumbers';
+import Button from './Button';
 
 
 const App = () => {
@@ -98,7 +100,27 @@ const App = () => {
           newNumber={newNumber}
           handleNewNumber={handleNewNumber} />
       <Heading2 text='Numbers' />
-        <DisplayPersons peopleToShow={peopleToShow} deletePerson={() => deletePerson()} />
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <Names peopleToShow={peopleToShow} />
+                </td>  
+                <td>
+                  <TelephoneNumbers peopleToShow={peopleToShow}/>
+                </td>
+                <td>
+                  <div>
+                  {peopleToShow.map((person, index) => (
+                    <p key={`${person.number}-${index}`}><Button classDef='button-del' type='button' text='delete' onClick={() => deletePerson(person.id)} /></p>
+                  ))}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
 )}
 

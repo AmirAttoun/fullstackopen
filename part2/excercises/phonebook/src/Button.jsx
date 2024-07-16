@@ -1,3 +1,3 @@
-const Button = ({ type, text }) =>  <button type={type}>{text}</button>
+const Button = ({ type, text, onClick, classDef }) => <button className={classDef} type={type} onClick={onClick}>{text}</button>
 
 export default Button;

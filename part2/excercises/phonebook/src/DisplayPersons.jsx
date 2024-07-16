@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Names from './Names';
 import TelephoneNumbers from './TelephoneNumbers';
 

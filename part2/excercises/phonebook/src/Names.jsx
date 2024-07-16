@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //Names.jsx
 const Names = ({ peopleToShow }) => {
     return (

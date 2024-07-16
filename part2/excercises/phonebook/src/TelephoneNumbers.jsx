@@ -1,13 +1,11 @@
 //TelephoneNumbers.jsx
-const TelephoneNumbers = ({ peopleToShow, deletePerson }) => {
-    const label = "delete"
+const TelephoneNumbers = ({ peopleToShow }) => {
     return (
       <div>
         {peopleToShow.map((person, index) => (
-          <p key={`${person.number}-${index}`}>{person.number} <button onClick={deletePerson}>{label}</button></p>
+          <p key={`${person.number}-${index}`}>{person.number}</p>
         ))}
       </div>
-
     );
   };
 
