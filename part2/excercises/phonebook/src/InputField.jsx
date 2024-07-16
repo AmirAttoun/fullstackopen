@@ -1,4 +1,6 @@
 // InputField.jsx
-const InputField = ({ value, onChange }) => <input value={value} onChange={onChange} />
+const InputField = ({ value, onChange }) => (
+  <input value={value} onChange={onChange} />
+)
 
-export default InputField;
+export default InputField

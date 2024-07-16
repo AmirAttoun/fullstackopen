@@ -1,6 +1,5 @@
 .button-del {
-  /* Example adjustments */
-  padding: 0px 0px; /* Adjust padding */
-  width: auto; /* Adjust width as needed */
-  margin: -10px 0; /* Centers button horizontally */
+  padding: 0px 0px;
+  width: auto;
+  margin: -10px 0;
 }
