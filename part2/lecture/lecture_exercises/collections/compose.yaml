@@ -1,0 +1,14 @@
+services:
+  node:
+    build:
+      context: .
+    working_dir: /collections
+    ports:
+      - "5173:5173"
+      - "3001:3001"
+    volumes:
+      - .:/collections
+      - node_modules:/usr/src/collections/node_modules
+    command: ["npm", "run", "start"]
+volumes:
+  node_modules:
