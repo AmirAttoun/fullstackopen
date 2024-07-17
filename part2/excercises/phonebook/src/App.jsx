@@ -4,12 +4,16 @@ import Filter from "./Filter"
 import AddPersonForm from "./AddPersonForm"
 import personService from "./services/persons"
 import PeopleTable from "./PeopleTable"
+import Notification from "./Notification"
+import "./css/index.css"
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState("")
   const [newNumber, setNewNumber] = useState("")
   const [newFilter, setNewFilter] = useState("")
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [className, setClassName] = useState("")
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -48,19 +52,36 @@ const App = () => {
       setPersons(persons.concat(returnedPerson))
       setNewName("")
       setNewNumber("")
+      setClassName("success")
+      setNotificationMessage(`Added ${returnedPerson.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
     })
   }
 
   const updateNumber = (id) => {
-    const url = `http://localhost:3001/persons/${id}`
     const person = persons.find((n) => n.id === id)
     const changedPerson = { ...person, number: newNumber }
 
-    personService.update(id, changedPerson).then((returnedPerson) => {
-      setPersons(
-        persons.map((person) => (person.id !== id ? person : returnedPerson))
-      )
-    })
+    personService.update(id, changedPerson)
+      .then((returnedPerson) => {
+        setPersons(persons.map((person) => (person.id !== id ? person : returnedPerson)));
+        setClassName("success")
+        setNotificationMessage(`Update number for ${person.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
+      })
+      .catch(error => {
+        console.error("Update error:", error.message);
+        setClassName("error");
+        setNotificationMessage(`The person '${changedPerson.name}' was already deleted from the server.`);
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 5000);
+        setPersons(persons.filter((p) => p.id !== id))
+      });
   }
 
   const deletePerson = (id) => {
@@ -71,12 +92,19 @@ const App = () => {
         .remove(id, person.name)
         .then(() => {
           setPersons(persons.filter((person) => person.id !== id))
+          setClassName("success")
+          setNotificationMessage(`Deleted ${person.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
         })
         .catch((error) => {
           console.error("Deletion error:", error.message)
-          alert(
-            `The person '${person.name}' was already deleted from the server.`
-          )
+          setClassName("error");
+          setNotificationMessage(`The person '${person.name}' was already deleted from the server.`);
+          setTimeout(() => {
+            setNotificationMessage(null);
+          }, 5000);
           setPersons(persons.filter((p) => p.id !== id))
         })
     }
@@ -110,6 +138,9 @@ const App = () => {
         <Heading2 text="Phonebook" />
       </header>
       <main>
+        <section>
+          <Notification message={notificationMessage} className={className}/>
+        </section>
         <section>
           <Filter value={newFilter} onChange={handleFilter} />
         </section>
