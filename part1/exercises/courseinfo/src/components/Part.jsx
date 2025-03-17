@@ -1,8 +1,8 @@
-const Part = ({part, exercises}) => {
+const Part = ({part}) => {
     return(
         <div>
             <p>
-                {part} {exercises}
+                <span>{part.name} {part.exercises}</span>
             </p>
         </div>
     )
