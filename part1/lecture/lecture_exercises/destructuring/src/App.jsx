@@ -1,28 +1,38 @@
 import { useState } from "react"
-import Display from "./components/Display"
+import History from "./components/History"
 import Button from "./components/Button"
 
 const App = () => {
   const [clicks, setClicks] = useState({
     left: 0, right: 0
   })
+  const [allClicks, setAll] = useState([])
+  const [total, setTotal] = useState(0)
 
-  const handleLeftClick = () =>
-    setClicks({ ...clicks, left: clicks.left + 1 })
-  
-  const handleRightClick = () =>
-    setClicks({ ...clicks, right: clicks.right + 1 })
+  const handleLeftClick = () => {
+    const newLeftClicks = clicks.left + 1
+    setClicks({ ...clicks, left: newLeftClicks })
+    setAll(allClicks.concat("L"))
+    setTotal(newLeftClicks + clicks.right)
+  }
+
+  const handleRightClick = () => {
+    const newRightClicks = clicks.right + 1
+    setClicks({ ...clicks, right: newRightClicks })
+    setAll(allClicks.concat("R"))
+    setTotal(clicks.left + newRightClicks)
+  }
+
 
   return (
     <div>
       {clicks.left}
-      <button onClick={handleLeftClick}>left</button>
-      <button onClick={handleRightClick}>right</button>
+      <Button onClick={handleLeftClick} text="left" />
+      <Button onClick={handleRightClick} text="right" />
       {clicks.right}
+      <History allClicks={allClicks} />
     </div>
   )
 }
 
 export default App
-
-// Continue with array
