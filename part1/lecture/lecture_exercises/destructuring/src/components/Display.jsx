@@ -1,4 +1,5 @@
-const Display = ({ counter }) => <div>{counter}</div>
+const Display = ({ counter }) => <div>{counter}</div>;
 
+//Testing
 
-export default Display
+export default Display;
