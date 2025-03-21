@@ -1,28 +1,28 @@
-import { useState } from "react"
-import History from "./components/History"
-import Button from "./components/Button"
+import { useState } from "react";
+import History from "./components/History";
+import Button from "./components/Button";
 
 const App = () => {
   const [clicks, setClicks] = useState({
-    left: 0, right: 0
-  })
-  const [allClicks, setAll] = useState([])
-  const [total, setTotal] = useState(0)
+    left: 0,
+    right: 0,
+  });
+  const [allClicks, setAll] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const handleLeftClick = () => {
-    const newLeftClicks = clicks.left + 1
-    setClicks({ ...clicks, left: newLeftClicks })
-    setAll(allClicks.concat("L"))
-    setTotal(newLeftClicks + clicks.right)
-  }
+    const newLeftClicks = clicks.left + 1;
+    setClicks({ ...clicks, left: newLeftClicks });
+    setAll(allClicks.concat("Ls"));
+    setTotal(newLeftClicks + clicks.right);
+  };
 
   const handleRightClick = () => {
-    const newRightClicks = clicks.right + 1
-    setClicks({ ...clicks, right: newRightClicks })
-    setAll(allClicks.concat("R"))
-    setTotal(clicks.left + newRightClicks)
-  }
-
+    const newRightClicks = clicks.right + 1;
+    setClicks({ ...clicks, right: newRightClicks });
+    setAll(allClicks.concat("Rs"));
+    setTotal(clicks.left + newRightClicks);
+  };
 
   return (
     <div>
@@ -32,7 +32,7 @@ const App = () => {
       {clicks.right}
       <History allClicks={allClicks} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
