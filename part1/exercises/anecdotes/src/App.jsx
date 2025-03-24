@@ -16,6 +16,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Uint8Array(8));
+  const mostVotedIndex = votes.indexOf(Math.max(...votes));
 
   return (
     <div>
@@ -28,12 +29,17 @@ const App = () => {
       />
       <Button
         handleClick={() => {
-          const newVotes = new Uint8Array(8);
+          const newVotes = new Uint8Array(votes);
           newVotes[selected] += 1;
           setVotes(newVotes);
         }}
         text="vote"
       />
+      <div>
+        <h1>Anecdote with most votes</h1>
+        <p>{anecdotes[mostVotedIndex]}</p>
+        <p>has {votes[mostVotedIndex]}</p>
+      </div>
     </div>
   );
 };
