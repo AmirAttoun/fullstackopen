@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "./components/Button";
 
 const App = () => {
+  //8 anecdotes total
   const anecdotes = [
     "If it hurts, do it more often.",
     "Adding manpower to a late software project makes it later!",
@@ -14,6 +15,7 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(new Uint8Array(8));
 
   return (
     <div>
@@ -23,6 +25,14 @@ const App = () => {
           setSelected(Math.floor(Math.random() * anecdotes.length))
         }
         text="next anecdote"
+      />
+      <Button
+        handleClick={() => {
+          const newVotes = new Uint8Array(8);
+          newVotes[selected] += 1;
+          setVotes(newVotes);
+        }}
+        text="vote"
       />
     </div>
   );
