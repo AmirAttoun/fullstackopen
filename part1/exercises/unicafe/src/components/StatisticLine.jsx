@@ -7,4 +7,6 @@ const StatisticLine = ({ text, value }) => {
   );
 };
 
+//Already an HTML table...
+
 export default StatisticLine;
