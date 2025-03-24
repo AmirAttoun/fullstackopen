@@ -11,7 +11,11 @@ const App = () => {
   return (
     <div>
       <FeedbackForm setGood={setGood} setNeutral={setNeutral} setBad={setBad} />
-      <StatisticsForm good={good} neutral={neutral} bad={bad} />
+      {good || neutral || bad ? (
+        <StatisticsForm good={good} neutral={neutral} bad={bad} />
+      ) : (
+        <p>No feedback given</p>
+      )}
     </div>
   );
 };
